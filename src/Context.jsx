@@ -1,10 +1,28 @@
 import React, { createContext, useContext, useReducer } from "react";
-
+import cartItems from "./data";
+import reducer from "./reducer";
+import { CLEAR_CART, REMOVE, INCREASE, DECREASE, LOADING } from "./actions";
 const AppContext = createContext();
 
-function Context({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const initialState = {
+  loading: false,
+  cart: new Map(cartItems.map((item) => [item.id, item])),
+};
 
+const getTotals = (cart) => {
+  let totalAmount = 0;
+  let totalCost = 0;
+
+  for (let { amount, price } of cart.values()) {
+    totalAmount += amount;
+    totalCost += amount * price;
+  }
+  return { totalAmount, totalCost };
+};
+
+export const Context = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { totalAmount, totalCost } = getTotals(state.cart);
   const clearCart = () => {
     dispatch({ type: CLEAR_CART });
   };
@@ -21,13 +39,21 @@ function Context({ children }) {
   };
 
   return (
-    <AppContext.Provider values={{ clearCart, remove, increase, decrease }}>
+    <AppContext.Provider
+      value={{
+        ...state,
+        clearCart,
+        remove,
+        increase,
+        decrease,
+        totalAmount,
+        totalCost,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
-}
-
-export default Context;
+};
 
 export const useGlobalContext = () => {
   return useContext(AppContext);
