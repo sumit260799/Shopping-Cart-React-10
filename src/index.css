@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* .cart-item {
+  column-gap: 1.5rem;
+} */
