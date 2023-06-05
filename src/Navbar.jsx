@@ -10,10 +10,10 @@ function Navbar() {
         <div className="nav-container relative flex">
           <BsFillCartPlusFill className="cart-icon  text-white text-[2rem]" />
           <div
-            className="amount-container absolute top-[-0.85rem] right-[-0.85rem]
-          bg-[#a29dff] text-white w-[1.75rem] h-[1.75rem] text-[1.5rem] justify-between items-center flex rounded-[50%]"
+            className="amount-container absolute top-[-0.75rem] right-[-0.75rem]
+          bg-[#a29dff] text-white w-[1.72rem] h-[1.72rem] text-[1rem] grid  place-items-center  rounded-[50%]"
           >
-            <p className="total-amount ml-2 ">{totalAmount}</p>
+            <span className="total-amount  ">{totalAmount}</span>
           </div>
         </div>
       </div>

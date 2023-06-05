@@ -1,4 +1,11 @@
-import { CLEAR_CART, INCREASE, REMOVE, DECREASE } from "./actions";
+import {
+  CLEAR_CART,
+  INCREASE,
+  REMOVE,
+  DECREASE,
+  DISPLAY_ITEMS,
+  LOADING,
+} from "./actions";
 
 const reducer = (state, action) => {
   if (action.type === CLEAR_CART) {
@@ -28,6 +35,13 @@ const reducer = (state, action) => {
     }
 
     return { ...state, cart: newCart };
+  }
+  if (action.type === LOADING) {
+    return { ...state, loading: true };
+  }
+  if (action.type === DISPLAY_ITEMS) {
+    const newCart = new Map(action.payload.data.map((item) => [item.id, item]));
+    return { ...state, loading: false, cart: newCart };
   }
 };
 
